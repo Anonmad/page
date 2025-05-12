@@ -160,9 +160,11 @@
 </head>
 <body class="no-translate">
     <div class="container">
-       <!-- Music Volume -->
-        <div class="sound-control" onclick="playAudio()">
-            🔊Vol.
+       <div id="music-player">
+            <button onclick="toggleMusic()" style="background: #000; border: 1px solid #0f0; color: #0f0; padding: 5px 10px;">
+                <i class="fas fa-music"></i> 
+                    <span id="music-status">Play</span>
+            </button>
         </div><br><br>
         
         <!-- Header -->
@@ -211,10 +213,11 @@
         
         <!-- Music Player (Auto-Replay) -->
         <div>
-            <audio id="audio-player" loop autoplay>
+            <audio id="bg-music" autoplay loop>
                 <source src="JVSTIN - CLANDESTINA (TikTok Remix) LYRICS(720P_HD).mp3" type="audio/mpeg">
                 Your browser does not support audio.
             </audio>
+            
             <p>For more help, contact Anonmad by clicking the DM Me button.<br>If you have any problems.</p>
             <h4>▶ NOW PLAYING: <strong>JVSTIN - CLANDESTINA</strong></h4>
         </div>
@@ -252,11 +255,12 @@
         checkNetwork();
         setInterval(checkNetwork, 5000);
 
-        // Force Auto-Play Music (For Mobile)
-        document.addEventListener('click', () => {
-            const audio = document.getElementById('audio-player');
-            audio.play().catch(e => console.log("Auto-play blocked:", e));
-        }, { once: true });
+        // Muziki Control
+        const music = document.getElementById('bg-music');
+        function toggleMusic() {
+            music.paused ? music.play() : music.pause();
+            document.getElementById('music-status').textContent = music.paused ? 'Play' : 'Pause';
+        }
     </script>
 </body>
 </html>
